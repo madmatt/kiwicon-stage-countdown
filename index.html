@@ -1,0 +1,98 @@
+<html>
+	<head>
+		<title>Kiwicon 666 Countdown</title>
+		<script src="jquery-1.8.2.min.js" type="text/javascript"></script>
+		<script src="jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+		<script src="jquery.bigtext.js" type="text/javascript"></script>
+		<script src="jquery.countdown.js" type="text/javascript"></script>
+		<script type="text/javascript" charset="utf-8">
+// Javascript
+$(function() {
+  var d, h, m, s;
+  var warningMinutes = 10;
+  var finalWarningMinutes = 4;
+  
+  BigText.DEFAULT_MAX_FONT_SIZE_PX = 750;
+  
+  $('#countdown').bind('click', function(e) {
+	e.preventDefault();
+	$('#countdown').hide();
+	$('#countdown').stop(true, true);
+	$('#countdown').css('opacity', 1); // Reset to full opacity
+	$('form').show();
+  });
+  
+  $('#button').bind('click', function(e) {
+	e.preventDefault();
+	
+	date = new Date();
+	
+	value = parseInt($('#timer').attr('value'));
+
+	// value is the value in minutes
+	// * by 60 (seconds in a minute)
+	// * by 1000 (milliseconds in a second)
+	// + the current date (to make it a valid date/epoch)
+	// + 2000 (because the countdown script seems to strip 2 seconds from the timer somewhere later on)
+	value = value * 60 * 1000 + date.valueOf();
+	
+	$('form').hide();
+	$('div#countdown').show();
+	
+	$('div#countdown').countdown(value, function(event) {
+		var timeFormatShort = "%m";
+		var timeFormatFull = "%m:%s";
+			$this = $(this);
+		switch(event.type) {
+		  case "hours":
+			h = event.value;
+			break;
+		  case "minutes":
+			m = event.value;
+			break;
+		  case "seconds":
+			s = event.value;
+			break;
+		  case "finished":
+			$this.effect("pulsate", { times: 500 }, 500000);
+			break;
+		}
+		// Assemble time format
+		if(m > finalWarningMinutes) {
+		  timeFormat = timeFormatShort;
+		} else {
+		  timeFormat = timeFormatFull;
+		}
+		timeFormat = timeFormat.replace(/\%h/, h);
+		timeFormat = timeFormat.replace(/\%m/, m);
+		timeFormat = timeFormat.replace(/\%s/, s);
+		$this.html(timeFormat);
+		
+		if(m > finalWarningMinutes && m <= warningMinutes) {
+			$this.css('color', 'orange');
+		} else if(m <= finalWarningMinutes) {
+			$this.css('color', 'red');
+		} else {
+			$this.css('color', 'white');
+		}
+		
+		// Display
+		
+		$('body').bigtext();
+	  }); 
+  });
+});
+</script>
+		
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	
+	<body>
+		<div id="countdown"></div>
+		<form id="form_timer" class="bigtext-exempt">
+			<p><img src="banner.png" /></p>
+			<p><input type="text" id="timer" value="46" style="text-align:center" /> minutes</p>
+			<p><button id="button">Start the fucken' show</button></p>
+		</form>
+	</body>
+</html>
