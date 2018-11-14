@@ -1,11 +1,24 @@
 body, input, button {
-	font-family: "Calibri";
+	font-family: "Calibri", "Open Sans", sans-serif;
 	width: 90%;
 	margin: 0 auto;
 	text-align: center;
-	background: #000;
+	background: rgb(26, 55, 97);
 	color: #fff;
+	font-size: 32px;
 }
 
-input { width: 50px; }
-button { width: 200px; height: 50px; }
+input {
+	width: 75px;
+	font-size: 32px;
+}
+
+button {
+	width: 250px;
+	height: 50px;
+	font-size: 32px;
+}
+
+#countdown {
+	font-family: "Monaco";
+}
