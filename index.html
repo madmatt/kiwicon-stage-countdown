@@ -27,7 +27,7 @@ $(function() {
 	
 	date = new Date();
 	
-	value = parseInt($('#timer').attr('value'));
+	value = parseInt($('#timer').attr('value')) + 1;
 
 	// value is the value in minutes
 	// * by 60 (seconds in a minute)
@@ -91,7 +91,7 @@ $(function() {
 		<div id="countdown"></div>
 		<form id="form_timer" class="bigtext-exempt">
 			<p><img src="banner.png" /></p>
-			<p><input type="text" id="timer" value="46" style="text-align:center" /> minutes</p>
+			<p><input type="text" id="timer" value="45" style="text-align:center" /> minutes</p>
 			<p><button id="button">Start the show</button></p>
 		</form>
 	</body>
